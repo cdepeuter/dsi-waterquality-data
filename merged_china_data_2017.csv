@@ -1,4 +1,4 @@
-,Station,week,cod,do,nh3,ph,week_eval,lon,lat,Basin
+,Station,week,cod,do,nh3,ph,quality,lon,lat,Basin
 0,1,1,,,,,,126.51378400000002,44.312158000000004,SongHua River
 1,1,2,3.3,12.3,0.38,7.38,2.0,126.51378400000002,44.312158000000004,SongHua River
 2,1,3,,,,,,126.51378400000002,44.312158000000004,SongHua River
