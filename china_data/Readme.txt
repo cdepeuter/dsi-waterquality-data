@@ -1,0 +1,3 @@
+Download the latest water quality report from the link http://www.mep.gov.cn/hjzl/shj/dbszdczb/
+It is Ministry of Environmental Protection of the People's Republic of China offical website and the report will be released and updated by week. 
+Use parse_chinaData.py scrit to parse the pdf file and get two files. One includes paramater observation results for all 148 stations and the other one includes water level for all 148 stations in that week. 

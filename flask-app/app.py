@@ -26,12 +26,14 @@ with app.app_context():
 	months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 	
 
-	# get current status and merge that with stations
-	# data_url = "https://raw.githubusercontent.com/cdepeuter/dsi-waterquality-data/master/south_africa_data.csv"
-	# x = requests.get(url=data_url).content 
-	# data = pd.read_csv(io.StringIO(x.decode('utf8')))
-	# local for testing
-	sa_data = pd.read_csv("data/south_africa_data.csv")
+	## get current status and merge that with stations
+	sa_data_url = "https://github.com/cdepeuter/dsi-waterquality-data/raw/master/flask-app/data/south_africa_data.csv"
+	x = requests.get(url=sa_data_url).content 
+	sa_data = pd.read_csv(io.StringIO(x.decode('utf8')))
+	print("sa data columns", sa_data.columns)
+	## local for testing
+	#sa_data = pd.read_csv("data/south_africa_data.csv")
+	
 	print("south africa data shape", sa_data.shape)
 	# list all params and calc min and max for legend display
 	sa_water_params = [
@@ -61,28 +63,14 @@ with app.app_context():
 	# get years and params available for this country
 	sa_year_params = [str(y) for y in sorted(sa_data.year.unique())]
 
-	#data_url = "https://raw.githubusercontent.com/cdepeuter/dsi-waterquality-data/master/merged_china_data_2017.csv"
-	# x = requests.get(url=data_url).content 
-	# data = pd.read_csv(io.StringIO(x.decode('utf8')))
+	china_data_url = "https://github.com/cdepeuter/dsi-waterquality-data/raw/master/flask-app/data/merged_china_data.csv"
+	x = requests.get(url=china_data_url).content 
+	china_data = pd.read_csv(io.StringIO(x.decode('utf8')))
 	# for local testing
-	china_data = pd.read_csv("data/merged_china_data.csv")
+	# china_data = pd.read_csv("data/merged_china_data.csv")
 	print("china data shape", china_data.shape)
 	# add colors for param, get max and min vals first so we arent doing an O(n) operation for each row
-	qual_min = china_data.quality.min()
-	qual_max = china_data.quality.max()
-	ph_min = china_data.ph.min()
-	ph_max = china_data.ph.max()
-	do_min = china_data.do.min()
-	do_max = china_data.do.max()
-	cod_min = china_data.cod.min()
-	cod_max = china_data.cod.max()
-	nh_min = china_data.nh.min()
-	nh_max = china_data.nh.max()
-	china_data['quality_color'] = china_data.quality.map(lambda x: colors[int((x-qual_min)*100/(qual_max-qual_min))].hex)
-	china_data['ph_color'] = china_data.ph.map(lambda x: colors[int(100*(x-ph_min)/(ph_max-ph_min))].hex)
-	china_data['do_color'] = china_data.do.map(lambda x: colors[int((x-do_min)*100/(do_max-do_min))].hex)
-	china_data['cod_color'] = china_data.cod.map(lambda x: colors[int((x-cod_min)*100/(cod_max-cod_min))].hex)
-	china_data['nh_color'] = china_data.nh.map(lambda x: colors[int((x-nh_min)*100/(nh_max-nh_min))].hex)
+
 	# get years and params available for this country
 	china_year_params = [str(y) for y in range(china_data.year.min(), china_data.year.max() + 1)]
 	china_water_params = [
@@ -92,6 +80,12 @@ with app.app_context():
 		{'label' :'Carbon Dioxide', 'value':'cod', 'min':round(china_data.cod_min.min(), MAX_DECIMALS), 'max':round(china_data.cod.max(), MAX_DECIMALS), 'explainer':'Carbon Dioxide (mg/L)'}, 
 		{'label' :'Ammonia', 'value':'nh', 'min':round(china_data.nh_min.min(), MAX_DECIMALS), 'max':round(china_data.nh.max(), MAX_DECIMALS), 'explainer':'Ammonia (mg/L)'}, 
 	]
+
+	for s in china_water_params:
+		param_min = china_data[s["value"]].min()
+		param_max = china_data[s["value"]].max()
+		china_data[s["value"] + "_color"] = china_data[s["value"]].map(lambda x: colors[int((x-param_min)*100/(param_max-param_min))].hex)
+
 
 @app.route('/')
 @app.route('/southafrica')

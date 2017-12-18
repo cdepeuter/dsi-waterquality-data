@@ -10,8 +10,8 @@ RUN apt-get -yqq install python-pip python-dev
 RUN apt-get -yqq install nodejs npm
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-ADD flask-app /opt/flask-app
-WORKDIR /opt/flask-app
+ADD flask-app /flask-app
+WORKDIR /flask-app
 
 # fetch app specific deps
 RUN npm install
