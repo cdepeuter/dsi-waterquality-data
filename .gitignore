@@ -1,0 +1,3 @@
+data/*
+processed_data/*
+flask-app/node_modules/*

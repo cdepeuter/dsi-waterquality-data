@@ -1,7 +1,8 @@
 # Columbia DSI Capstone Project
 
 ## Building a Webapp to give a spatial understanding of water quality
-In this project our goal was to help collect data and build a tool to understand water quality in certain areas of interest. We have collected and cleaned data for South Africa and China, and 
+In this project our goal was to help collect data and build a tool to understand water quality in certain areas of interest. We have collected and cleaned data for South Africa and China, and built a webapp to help view the data and how it changes throught time.
+
 ## Data Cleaning
 This Repo contains data for South Africa and China. The data contains no NA's, so in the collection process those should be removed/replaced as desired.
 
@@ -43,8 +44,12 @@ From the root directory of this repo
 
 The recommended way to run the webapp is use Amazon Elastic Beanstalk. By building a container using Docerrun.aws.json, an environment with Python and Node, and all the required packages is easily installed. When changes are made to this github repo, they will automatically rebuild the image, and changes show in the production environment by simply clicking "Rebuild Environment". 
 
-However, all that really needs to be done is install the required python/nodejs packages, and run two commands from the /flask-app directory.
+However, all that really needs to be done is install the required python/nodejs packages, and run one command from the /flask-app directory.
 * `$ python app.py`
+
+Once this is run, the app will be available at http://0.0.0.0:5000
+
+If any javascript changes are made then one more command needs to be run:
 * `$ npm start`
 
 More detailed instructions are in the README in the flask-app directory
