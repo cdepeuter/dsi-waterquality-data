@@ -33,29 +33,33 @@ with app.app_context():
 	# local for testing
 	sa_data = pd.read_csv("data/south_africa_data.csv")
 	print("south africa data shape", sa_data.shape)
+	# list all params and calc min and max for legend display
+	sa_water_params = [
+		{'value': 'hardness', 'label':'Hardness', 'min':round(sa_data.hardness.min(), MAX_DECIMALS), 'max' :round(sa_data.hardness.max(), MAX_DECIMALS), 'explainer': 'Hardness (mg/L)'}, 
+		{'label':'pH', 'value' :'ph', 'min': round(sa_data.ph.min(), MAX_DECIMALS), 'max':round(sa_data.ph.max(), MAX_DECIMALS), 'explainer':'pH: (ph Units)'},
+		{'label':'Potassium', 'value' :'k', 'min': round(sa_data.k.min(), MAX_DECIMALS), 'max':round(sa_data.k.max(), MAX_DECIMALS), 'explainer':'Potassium: (mg/L)'},
+		#{'label':'Dissolved Salts', 'value' :'dms', 'min': round(sa_data.dms.min(), MAX_DECIMALS), 'max':round(sa_data.dms.max(), MAX_DECIMALS), 'explainer':'Dissolved Salts: (mg/L)'},
+		#{'label':'Phosphorus', 'value' :'p', 'min': round(sa_data.dms.min(), MAX_DECIMALS), 'max':round(sa_data.dms.max(), MAX_DECIMALS), 'explainer':'Phosphorus: (mg/L)'},
 
-	# get min and max valus since these are O(n) operations
-	min_hardness = sa_data.hardness.min()	
-	max_hardness = sa_data.hardness.max()
-	min_ph = sa_data.ph.min()
-	max_ph = sa_data.ph.max()
-	min_k = sa_data.k.min()
-	max_k = sa_data.k.max()
-	min_dms = sa_data.dms.min()
-	max_dms = sa_data.dms.max()
-	sa_data['hardness_color'] = sa_data.hardness.map(lambda x: colors[int((x-min_hardness)*100/(max_hardness-min_hardness))].hex)
-	sa_data['ph_color'] = sa_data.ph.map(lambda x: colors[int((x-min_ph)*100/(max_ph-min_ph))].hex)
-	sa_data['k_color'] = sa_data.k.map(lambda x: colors[int((x-min_k)*100/(max_k-min_k))].hex)
-	sa_data['dms_color'] = sa_data.dms.map(lambda x: colors[int((x-min_dms)*100/(max_dms-min_dms))].hex)
+		{'label':'Electrical Conductivity', 'value' :'ec', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Electrical Conductivity: (Millisiemens per Metre)'},
+		{'label':'Chloride', 'value' :'cl', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Chloride: (mg/L)'},
+		{'label':'Fluoride', 'value' :'f', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Fluoride: (mg/L)'},
+		{'label':'Sodium', 'value' :'na', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Sodium: (mg/L)'},
+		{'label':'Silicon', 'value' :'si', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Fluoride: (mg/L)'},
+		{'label':'Total Alkalinity', 'value' :'tal', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Total Alkalinity: (mg/L)'},
+		{'label':'Sulphate', 'value' :'so', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Sulphate: (mg/L)'},
+		{'label':'Ammonium Nitrogen', 'value' :'amn', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Ammonium Nitrogen: (mg/L)'},
+		{'label':'Nitrate + Nitrite Nitrogen', 'value' :'no', 'min': round(sa_data.ec.min(), MAX_DECIMALS), 'max':round(sa_data.ec.max(), MAX_DECIMALS), 'explainer':'Nitrate + Nitrite Nitrogen: (mg/L)'}
+	]
+   
+	# get min and max values and 
+	for s in sa_water_params:
+		param_min = sa_data[s["value"]].min()
+		param_max = sa_data[s["value"]].max()
+		sa_data[s["value"] + "_color"] = sa_data[s["value"]].map(lambda x: colors[int((x-param_min)*100/(param_max-param_min))].hex)
+
 	# get years and params available for this country
 	sa_year_params = [str(y) for y in sorted(sa_data.year.unique())]
-	sa_water_params = [
-			{'value': 'hardness', 'label':'Hardness', 'min':round(sa_data.hardness.min(), MAX_DECIMALS), 'max' :round(sa_data.hardness.max(), MAX_DECIMALS), 'explainer': 'Hardness (mg/L)'}, 
-			{'label':'pH', 'value' :'ph', 'min': round(sa_data.ph.min(), MAX_DECIMALS), 'max':round(sa_data.ph.max(), MAX_DECIMALS), 'explainer':'pH: (ph Units)'},
-			{'label':'Potassium', 'value' :'k', 'min': round(sa_data.k.min(), MAX_DECIMALS), 'max':round(sa_data.k.max(), MAX_DECIMALS), 'explainer':'Potassium: (mg/L)'},
-			{'label':'Dissolved Salts', 'value' :'dms', 'min': round(sa_data.dms.min(), MAX_DECIMALS), 'max':round(sa_data.dms.max(), MAX_DECIMALS), 'explainer':'Dissolved Salts: (mg/L)'}
-			
-		]
 
 	#data_url = "https://raw.githubusercontent.com/cdepeuter/dsi-waterquality-data/master/merged_china_data_2017.csv"
 	# x = requests.get(url=data_url).content 

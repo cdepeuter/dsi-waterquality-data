@@ -1,7 +1,7 @@
 {
   "name": "DSI-Water-Quality",
   "version": "1.0.0",
-  "description": "Bikeshare data analysis",
+  "description": "Water Quality viz and analysis",
   "main": "index.js",
   "scripts": {
     "start": "webpack --progress --colors --watch",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cdepeuter/DSI-South-African-Water-Quality.git"
+    "url": "git+https://github.com/cdepeuter/dsi-waterquality-data.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cdepeuter/DSI-South-African-Water-Quality/issues"
+    "url": "https://github.com/cdepeuter/dsi-waterquality-data/issues"
   },
   "homepage": "https://github.com/cdepeuter/DSI-South-African-Water-Quality#readme",
   "dependencies": {

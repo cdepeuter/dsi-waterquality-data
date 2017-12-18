@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Toggle from 'react-bootstrap-toggle';
 import { Map, CircleMarker, Popup} from 'react-leaflet'
 import Dropdown from 'react-dropdown';
-import { where} from 'underscore';
 import StatIndicatorLayer from './StatIndicatorLayer';
 
 export default class Legend extends React.Component {
@@ -42,7 +41,6 @@ export default class Legend extends React.Component {
 				<Dropdown options={this.props.params} onChange={this.handleStatChange} value={displayStat} placeholder="Select an option" />
 		       	<Dropdown options={this.state.countries} onChange={this.changeCountry} value={this.state.labelTags[this.props.country]} placeholder="Select an option" />
 		    	<StatIndicatorLayer stat={this.props.explainer} />
-
 	       </div>
       )
     }
