@@ -31,10 +31,12 @@ The water quality data for China runs from 2016-2017 and is collected from http:
 
 To add more sources, a few updates need to be made.
 * In flask-app/app.py, add a new route and html template for the new country (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/app.py#L97)
-* In flask-app/app.py, under `with app.app_context()` load the cleaned data and add parameter colors as is done for the China and South Africa sources (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/app.py#L20)
-* In flask-app/app.py add a new API for the country in the same format as china and South Africa (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/app.py#L122)
-* Under flask-app/static/src/components/ add a new Layer for that country, in the same format as ChinaLayer.js and SouthAfricaLayer.js. You can copy one of those files and that needs to be changed are the country specific lines (lat/long, dataurl, Station layer params, and Layer/file names.) (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/static/src/components/ChinaLayer.js)
-* In flask-app/static/src/components/Legend.js, add country and label tags to the Component state. The country tag should mirror the html file route, and the labelTag should mirror the country prop in the new <Country>Layer.js component.
+* In flask-app/app.py, under `with app.app_context()` load the cleaned data and add an array for the parameters of interest and for these parameters add colors as is done for the China and South Africa sources (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/app.py#L20)
+* In flask-app/app.py add a new API for the country in the same format as china and South Africa (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/app.py#L120)
+* Under flask-app/static/src/components/ add a new Layer for that country, in the same format as ChinaLayer.js and SouthAfricaLayer.js. You can copy one of those files and all that needs to be changed are the country specific lines (lat/long, dataurl, Station layer params, and Layer/file names.) (https://github.com/cdepeuter/dsi-waterquality-data/blob/master/flask-app/static/src/components/ChinaLayer.js)
+* In flask-app/static/src/components/Legend.js, add country and label tags to the Component state. The country tag should mirror the html file route, and the labelTag should mirror the country prop in the new <Country>Layer.js component. This is so the new country appears in the dropdown.
+
+Thats it!
 
 ## Setting up docker image (not required)
 
@@ -49,15 +51,17 @@ From the root directory of this repo
 
 ### Building on AWS (not required)
 
-The recommended way to run the webapp is use Amazon Elastic Beanstalk. By building a container using Docerrun.aws.json, an environment with Python and Node, and all the required packages is easily installed. When changes are made to this github repo, they will automatically rebuild the image, and changes show in the production environment by simply clicking "Rebuild Environment". 
+The recommended way to run the webapp is use Amazon Elastic Beanstalk. By building a container using Dockerrun.aws.json, an environment with Python and Node, and all the required packages is easily installed. When changes are made to this github repo, they will automatically rebuild the image, and changes show in the production environment by simply clicking "Rebuild Environment". 
 
 However, all that really needs to be done is install the required python packages, and run one command from the /flask-app directory.
 * `$ python app.py`
 
-Once this is run, the app will be available at http://0.0.0.0:5000
+Once this is run, the app will be available at http://0.0.0.0:5000/
 
 If any javascript changes are made then nodejs/npm needs to be installed, and one more command needs to be run:
 
-* `$ npm start`
+* `$ npm start` (for continuous change monitoring)
+or 
+* `$ npm run build` (for one time runs)
 
-More detailed instructions are in the README in the flask-app directory
+More detailed instructions on building the webapp if difficulties are encountered are in the README in the flask-app directory.
