@@ -1,0 +1,61 @@
+{
+  "name": "DSI-Water-Quality",
+  "version": "1.0.0",
+  "description": "Bikeshare data analysis",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --progress --colors --watch",
+    "build": "NODE_ENV='production' webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdepeuter/DSI-South-African-Water-Quality.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cdepeuter/DSI-South-African-Water-Quality/issues"
+  },
+  "homepage": "https://github.com/cdepeuter/DSI-South-African-Water-Quality#readme",
+  "dependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-root-import": "^4.1.8",
+    "css-loader": "^0.28.0",
+    "file-loader": "^0.11.1",
+    "json-loader": "^0.5.4",
+    "leaflet": "^1.0.3",
+    "lodash": "^4.17.4",
+    "mapbox-gl": "^0.35.0",
+    "path": "^0.12.7",
+    "react": "^15.3.0",
+    "react-bootstrap-toggle": "^2.0.7",
+    "react-dom": "^15.3.0",
+    "react-dropdown": "^1.3.3",
+    "react-leaflet": "^1.1.5",
+    "react-native-button": "^1.8.2",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "style-loader": "^0.16.1",
+    "superagent": "^1.6.1",
+    "underscore": "^1.8.3",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-proto-to-assign": "^6.23.0",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-1": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "redux-devtools": "^3.3.2",
+    "style-loader": "^0.16.1",
+    "webpack": "^1.12.9"
+  }
+}
