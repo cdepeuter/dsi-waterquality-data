@@ -45691,9 +45691,11 @@
 					var p = this.state.params[param];
 					markup += "<dd>";
 					markup += p["label"] + ": " + s[p["value"]];
-					markup += ",  ";
+					markup += "</dd>";
+					markup += "<dd>";
 					markup += p["label"] + " Min: " + s[p["value"] + "_min"];
-					markup += ",   ";
+					markup += "</dd>";
+					markup += "<dd>";
 					markup += p["label"] + " Max: " + s[p["value"] + "_max"];
 					markup += "</dd>";
 				}
